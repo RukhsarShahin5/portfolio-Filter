@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Filter</title>
+</head>
+<style>
+    body{
+        margin: 0;
+        font-family: 'poppins',sans-serif;
+    
+    }
+    *{
+        box-sizing: border-box;
+        margin: 0;
+    }
+    .container{
+        max-width: 1140px;
+        margin: auto;
+    }
+    .row{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .section-title{
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 40px;
+    }
+    .section-title h1{
+        display: inline-block;
+        font-size: 35px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: white;
+        margin: 0 0 5px;
+        position: relative;
+    }
+    .section-title h1:before{
+        content: '';
+        left: 0;
+        position: absolute;
+        height: 2px;
+        right: 32%;
+        background-color: #febd01;
+        bottom: 0px;
+    }
+    .text-center{
+        text-align: center!important;
+    }
+    .text-right{
+        text-align: right!important;
+    }
+    .portfolio{
+        background-color: #000000;
+        padding: 100px 7px;
+    }
+    .portfolio .section-title h1:before{
+        left: 30%;
+    }
+    .portfolio .filter-buttons{
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    .portfolio .filter-buttons ul{
+        list-style: none;
+        text-align: center;
+        padding: 0;
+    }
+    .portfolio .filter-buttons ul li{
+        color: white;
+        font-weight: 500;
+        font-size: 16px;
+        display: inline-block;
+        margin: 0px 8px;
+        text-transform: uppercase;
+        cursor: pointer;
+        padding-bottom: 0px;
+    }
+    .portfolio .filter-buttons ul li.active{
+        color: #febd01;
+        border-bottom: 2px solid #febd01;
+    }
+    .portfolio .portfolio-gallery{
+        flex: 0 0 100%;
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .portfolio .portfolio-gallery .item{
+        flex: 0 0 33.33%;
+        max-width: 33.33%;
+        position: relative;
+        padding: 8px;
+    }
+    .portfolio .portfolio-gallery .item .inner{
+        position: relative;
+    }
+    .portfolio .portfolio-gallery .item img{
+        width: 100%;
+        display: block;
+    }
+    .see-more{
+        text-align: center;
+        margin-top: 20px;
+    }
+    .see-more button{
+        padding: 10px 20px;
+        background-color: #febd01;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+    .hidden-item {
+        display: none;
+    }
+    
+
+    @media(max-width:767px){
+        .portfolio .portfolio-gallery .item{
+            flex:0 0 50% ;
+            max-width: 50%;
+            position: relative;
+            padding:8px ;
+        }
+    }
+
+    @media(max-width:500px){
+        .portfolio .portfolio-gallery .item{
+            flex:0 0 100% ;
+            max-width: 100%; 
+        }
+    }
+</style>
+<body>
+    <main>
+    <section class="portfolio" id="Portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="section-title text-center">
+                    <h1> Girls Portfolio Filter</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="filter-buttons">
+                    <ul id="filter-btns">
+                        <li class="active" data-target="all">ALL</li>
+                        <li data-target="Branding"> BEAUTIFUL GIRL</li>
+                        <li data-target="Photoshop">CUTE GIRL</li>
+                        <li data-target="Fashion">FASHION GIRL</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portfolio-gallery">
+                    <div class="item" data-id="Branding">
+                        <div class="inner">
+                            <img src="girl1.webp" alt="portfolio">
+                        </div>
+                    </div>
+
+                    <div class="item" data-id="Photoshop">
+                        <div class="inner">
+                            <img src="girl2.webp" alt="portfolio">
+                        </div>
+                    </div>
+
+                    <div class="item" data-id="Fashion">
+                        <div class="inner">
+                            <img src="girl3.webp" alt="portfolio">
+                        </div>
+                    </div>
+
+                    <div class="item hidden-item" data-id="Fashion">
+                        <div class="inner">
+                            <img src="girl4.webp" alt="portfolio">
+                        </div>
+                    </div>
+
+                    <div class="item hidden-item" data-id="Branding">
+                        <div class="inner">
+                            <img src="girl5.webp" alt="portfolio">
+                        </div>
+                    </div>
+
+                    <div class="item hidden-item" data-id="Photoshop">
+                        <div class="inner">
+                            <img src="girl6.webp" alt="portfolio">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row see-more">
+                <button id="see-more-btn">See More</button>
+            </div>
+        </div>
+    </section>
+</main>
+    <script>
+        const filterButtons = document.querySelector("#filter-btns").children;
+        const items = document.querySelector(".portfolio-gallery").children;
+        const seeMoreButton = document.getElementById("see-more-btn");
+        const hiddenItems = document.querySelectorAll(".hidden-item");
+
+        // Filter functionality
+        for (let i = 0; i < filterButtons.length; i++) {
+            filterButtons[i].addEventListener("click", function () {
+                for (let j = 0; j < filterButtons.length; j++) {
+                    filterButtons[j].classList.remove("active");
+                }
+                this.classList.add("active");
+                const target = this.getAttribute("data-target");
+
+                for (let k = 0; k < items.length; k++) {
+                    items[k].style.display = "none";
+                    if (target == items[k].getAttribute("data-id") || target == "all") {
+                        items[k].style.display = "block";
+                    }
+                }
+            });
+        }
+
+        // See More button functionality
+        seeMoreButton.addEventListener("click", function() {
+            hiddenItems.forEach(item => {
+                item.style.display = "block";
+            });
+            seeMoreButton.style.display = "none";  // Hide the "See More" button after clicking
+        });
+    </script>
+</body>
+</html>
